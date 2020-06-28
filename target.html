@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Web Share Target</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4a148c">
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script type="module">
+        const serviceWorkerSupported = "serviceWorker" in navigator;
+        const isSecureHost = location.protocol === "https:" || location.hostname !== "127.0.0.1" || location.hostname !== "localhost";
+
+        if(!isSecureHost) {
+            document.querySelector("#https-note").classList.remove("hidden");
+        }
+
+        if (serviceWorkerSupported) {
+            console.log("Registering of service worker");
+            navigator.serviceWorker
+                .register("./service-worker.js")
+                .then(_ => {
+                    document.querySelector("#sw-reg-note").classList.remove("hidden");
+                    console.log("Service worker was registered");
+                });
+        } else {
+            document.querySelector("#sw-note").classList.remove("hidden");
+        }
+    </script>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.querySelector("#href").textContent = window.location.href;
+            const parsedUrl = new URL(window.location);
+
+            document.querySelector("#text").textContent = parsedUrl.searchParams.get("text");
+            document.querySelector("#files").textContent = parsedUrl.searchParams.get("files");
+
+            // document.querySelector("#title").textContent = parsedUrl.searchParams.get("title");
+            // document.querySelector("#url").textContent = parsedUrl.searchParams.get("url");
+        });
+    </script>
+</head>
+<body>
+    <h1>Web Share Target</h1>
+    <p id="https-note" class="hidden warning">This page requires to be served over HTTPS.</p>
+    <p id="sw-reg-note" class="hidden">Service worker was registered.</p>
+
+
+    <b>window.location:</b> <div id="href"></div><br>
+    <b>Text:</b> <div id="text"></div><br>
+    <b>Files:</b> <div id="files"></div><br>
+
+<!--    <b>Title:</b> <div id="title"></div><br>-->
+<!--    <b>Url:</b> <div id="url"></div><br>-->
+
+</body>
+</html>
