@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="./style.css">
 
+    
     <script type="module">
         const serviceWorkerSupported = "serviceWorker" in navigator;
         const isSecureHost = location.protocol === "https:" || location.hostname === "127.0.0.1" || location.hostname === "localhost";
@@ -37,7 +38,6 @@
 
         if(shareSupported) {
             const shareButton = document.querySelector("#share-button");
-            //const text = "Qwerty: https://example.com/";
 
             shareButton.addEventListener("click", async event => {
                 event.preventDefault();
@@ -62,9 +62,8 @@
             document.querySelector("#share-note").classList.remove("hidden");
             document.querySelector("#share-button").setAttribute("disabled", "");
         }
-
-
     </script>
+    
 </head>
 <body>
     <h1>Web Share API demo</h1>
