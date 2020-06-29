@@ -11,7 +11,7 @@
 
     <script type="module">
         const serviceWorkerSupported = "serviceWorker" in navigator;
-        const isSecureHost = location.protocol === "https:" || location.hostname !== "127.0.0.1" || location.hostname !== "localhost";
+        const isSecureHost = location.protocol === "https:" || location.hostname === "127.0.0.1" || location.hostname === "localhost";
 
         if(!isSecureHost) {
             document.querySelector("#https-note").classList.remove("hidden");
