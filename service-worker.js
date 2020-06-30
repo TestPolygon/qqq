@@ -43,7 +43,7 @@ self.addEventListener("fetch", async function(event) {
             date: new Date(file.lastModified),
             size: file.size,
             type: file.type,
-        }));
+        }, null, " "));
 
         const redirectUrl = new URL(event.request.url);
         redirectUrl.searchParams.append("text", text);
